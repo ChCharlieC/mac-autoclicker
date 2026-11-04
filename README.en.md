@@ -9,6 +9,11 @@ It has two modes:
 - **Click**: place numbered points and click them in a loop, each with its own interval.
 - **Script**: recognize images on screen and act on your rules.
 
+<p>
+  <img src="docs/script-mode.png" alt="Script mode" width="560">
+  <img src="docs/click-mode.png" alt="Click mode" width="220">
+</p>
+
 ## Disclaimer
 
 This is a general-purpose macOS auto-clicking tool, for learning and personal use.

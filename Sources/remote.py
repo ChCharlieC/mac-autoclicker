@@ -99,11 +99,13 @@ function refresh(){
     d.innerHTML=esc(s.modeName)+(s.dryRun?" · 演练模式（不点击）":"")+(s.activity?"<br>"+esc(s.activity):"")+(s.error?'<br><span class="err">'+esc(s.error)+"</span>":"");
     document.getElementById("start").disabled=stale||s.state!="idle"||!s.canStart;
     document.getElementById("stop").disabled=stale||s.state=="idle";
-    var h=row("点击次数",s.clicks);
+    var h="";
     if(s.remaining)h+=row("剩余时间",s.remaining);
     if(s.idleLeft)h+=row("没识别到就停止，还剩",s.idleLeft);
     if(s.eye)h+=row("识别进程（眼睛）",s.eye);
-    document.getElementById("info").innerHTML=h;
+    var info=document.getElementById("info");
+    info.innerHTML=h;
+    info.classList.toggle("hide",!h);
     var im=document.getElementById("images");
     if(s.images&&s.images.length){
       im.classList.remove("hide");
@@ -130,7 +132,6 @@ EN = [
     ('?"开始":"停止"', '?"Start":"Stop"'),
     ("AutoClicker 没有响应", "AutoClicker isn't responding"),
     ("演练模式（不点击）", "Dry run (no clicks)"),
-    ("点击次数", "Clicks"),
     ("剩余时间", "Time left"),
     ("没识别到就停止，还剩", "Stops with no match in"),
     ("识别进程（眼睛）", "Recognition process"),

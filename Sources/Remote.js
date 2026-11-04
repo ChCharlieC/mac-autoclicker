@@ -287,7 +287,7 @@ AutoClicker.prototype.autoRestoreAfterStop = function () {
 // 一行状态：小条和手机网页共用
 AutoClicker.prototype.shortStatus = function () {
     if (this.isClicking) {
-        var text = tr("运行中 · ") + this.clickCount + tr(" 次");
+        var text = tr("运行中…");
         if (this.runDeadline) text += tr(" · 剩余 ") + formatClock((this.runDeadline - Date.now()) / 1000);
         if (this.dryRun) text += tr(" · 演练");
         return { text: text, color: $.NSColor.systemGreenColor, state: "running" };
@@ -306,7 +306,8 @@ AutoClicker.prototype.updateMiniBar = function () {
     // 脚本模式运行时，显示正在做什么（例如"规则 2「开始」→ …"）
     if (this.mode === "script" && this.isClicking && this.activityLabel) {
         var activity = jsString(this.activityLabel.stringValue);
-        if (activity) text = activity + " · " + this.clickCount + tr(" 次");
+        if (activity) text = activity;
+        if (activity && this.runDeadline) text += tr(" · 剩余 ") + formatClock((this.runDeadline - Date.now()) / 1000);
     }
     this.miniLabel.stringValue = text;
     this.miniLabel.toolTip = text;
@@ -441,7 +442,6 @@ AutoClicker.prototype.writeRemoteStatus = function () {
         modeName: modeName,
         state: status.state,
         statusText: status.text,
-        clicks: this.clickCount,
         dryRun: Boolean(this.isClicking ? this.dryRun : (this.mode === "script" ? this.scriptDryRun : jsBoolean(this.defaults.boolForKey("dryRun")))),
         remaining: this.isClicking && this.runDeadline ? formatClock((this.runDeadline - Date.now()) / 1000) : "",
         canStart: this.mode === "click" || this.mode === "script",
